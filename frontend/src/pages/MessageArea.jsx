@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import dp from "../assets/dp.jpeg"
 import { LuImage } from "react-icons/lu";
 import { IoMdSend } from "react-icons/io";
-import SenderMessage from '../components/senderMessage';
+import SenderMessage from '../components/SenderMessage';
 import axios from 'axios';
 import { serverUrl } from '../App';
 import { setMessages } from '../redux/messageSlice';
