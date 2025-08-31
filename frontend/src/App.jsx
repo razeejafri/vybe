@@ -89,6 +89,8 @@ const App = () => {
       <Route path='/messageArea' element={userData ?  <MessageArea/> : <Navigate to={"/signin"}/>}/>
       <Route path='/search' element={userData ?  <Search/> : <Navigate to={"/signin"}/>}/>
       <Route path='/notifications' element={userData ?  <Notifications/> : <Navigate to={"/signin"}/>}/>
+
+      <Route path='*' element={<ErrorPage/> }/>
     </Routes>
   )
 }
