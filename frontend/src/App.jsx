@@ -26,6 +26,7 @@ import Search from './pages/Search'
 import getAllNotifications from './hooks/getAllNotifications'
 import Notifications from './pages/Notifications'
 import { setNotificationData } from './redux/userSlice'
+import ErrorPage from './pages/ErrorPage'
 
 export const serverUrl = "http://localhost:8000"
 
@@ -89,6 +90,8 @@ const App = () => {
       <Route path='/messageArea' element={userData ?  <MessageArea/> : <Navigate to={"/signin"}/>}/>
       <Route path='/search' element={userData ?  <Search/> : <Navigate to={"/signin"}/>}/>
       <Route path='/notifications' element={userData ?  <Notifications/> : <Navigate to={"/signin"}/>}/>
+
+      <Route path='*' element={<ErrorPage/> }/>
     </Routes>
   )
 }
