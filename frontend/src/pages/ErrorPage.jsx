@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 
 export default function ErrorPage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white text-center px-6">
+    <div className="flex flex-col items-center justify-center min-h-screen 
+    bg-gradient-to-b from-black to-gray-900 text-white text-center px-6">
       {/* Animated 404 */}
       <motion.h1
-        className="text-9xl font-extrabold drop-shadow-lg"
+        className="text-9xl font-extrabold drop-shadow-lg text-red-600"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 100, damping: 10 }}
