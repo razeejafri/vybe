@@ -105,8 +105,8 @@ function Post({post}) {
     },[socket, postData, dispatch])
 
   return (
-    <div className='w-[95%] sm:w-[90%] md:w-[80%] lg:w-[60%] flex flex-col gap-4
-    bg-white rounded-2xl shadow-lg shadow-gray-400 pb-4 mx-auto mt-4'>
+   <div className='w-[95%] sm:w-[90%] md:w-[80%] lg:w-[60%] flex flex-col gap-4
+    bg-white rounded-2xl shadow-md pb-4 mx-auto mt-4'>
 
   {/* Header: profile + follow */}
   <div className='w-full flex justify-between items-center px-3 py-2'>
@@ -116,7 +116,6 @@ function Post({post}) {
       </div>
       <div className='flex flex-col min-w-0'>
         <span className='font-semibold text-sm sm:text-base truncate'>{post.author?.userName}</span>
-        {/* Optional: user handle or extra info */}
       </div>
     </div>
     {userData?._id !== post.author?._id && (
@@ -128,15 +127,14 @@ function Post({post}) {
   </div>
 
   {/* Media */}
-  <div className='w-full flex justify-center items-center bg-black'>
-    {post.mediaType === "image" && (
+  <div className='w-full flex justify-center items-center bg-black rounded-t-2xl overflow-hidden'>
+    {post.mediaType === "image" ? (
       <img
         src={post.media}
         alt=""
         className='w-full h-auto max-h-[500px] md:max-h-[600px] object-contain'
       />
-    )}
-    {post.mediaType === "video" && (
+    ) : (
       <div className='w-full h-auto max-h-[500px] md:max-h-[600px]'>
         <VideoPlayer media={post.media} />
       </div>
@@ -181,9 +179,10 @@ function Post({post}) {
   {/* Comments */}
   {showComment && (
     <div className='w-full flex flex-col gap-3 px-3 sm:px-4 mt-2'>
+      {/* Add Comment Input */}
       <div className='flex items-center gap-2 w-full'>
         <div className='w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-gray-300 flex-shrink-0'>
-          <img src={post.author.profileImage || dp} alt="" className='w-full h-full object-cover' />
+          <img src={userData.profileImage || dp} alt="" className='w-full h-full object-cover' />
         </div>
         <input
           type='text'
@@ -197,9 +196,10 @@ function Post({post}) {
         </button>
       </div>
 
+      {/* Existing Comments */}
       <div className='max-h-60 md:max-h-80 overflow-auto flex flex-col gap-2 mt-2'>
         {post.comments?.map((com, idx) => (
-          <div key={idx} className='flex items-center gap-2'>
+          <div key={idx} className='flex items-start gap-2'>
             <div className='w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-gray-300 flex-shrink-0'>
               <img src={com.author.profileImage || dp} alt="" className='w-full h-full object-cover' />
             </div>
@@ -213,6 +213,7 @@ function Post({post}) {
     </div>
   )}
 </div>
+
 
 
   )
