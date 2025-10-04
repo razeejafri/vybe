@@ -105,55 +105,47 @@ function Post({post}) {
     },[socket, postData, dispatch])
 
   return (
-    <div className='w-[95%] sm:w-[90%] md:w-[80%] lg:w-[70%] flex flex-col gap-4
-    bg-white items-center shadow-2xl shadow-[#00000058]
-    rounded-2xl pb-5 mx-auto'>
+    <div className='w-[95%] sm:w-[90%] md:w-[80%] lg:w-[60%] flex flex-col gap-4
+    bg-white rounded-2xl shadow-lg shadow-gray-400 pb-4 mx-auto mt-4'>
 
-  {/* Profile / Name / Follow */}
-  <div className='w-full h-auto flex justify-between items-center px-2 md:px-4 py-2'>
-    <div
-      className='flex items-center gap-2 sm:gap-4 cursor-pointer'
-      onClick={() => navigate(`/profile/${post.author?.userName}`)}
-    >
-      <div className='w-10 h-10 sm:w-14 sm:h-14 border-2 border-black rounded-full overflow-hidden'>
-        <img
-          src={post?.author?.profileImage || dp}
-          alt=""
-          className='w-full h-full object-cover'
-        />
+  {/* Header: profile + follow */}
+  <div className='w-full flex justify-between items-center px-3 py-2'>
+    <div className='flex items-center gap-2 sm:gap-3 flex-1 min-w-0 cursor-pointer' onClick={() => navigate(`/profile/${post.author?.userName}`)}>
+      <div className='w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-gray-300 flex-shrink-0'>
+        <img src={post.author?.profileImage || dp} alt="" className='w-full h-full object-cover' />
       </div>
-      <div className='font-semibold text-sm sm:text-base md:text-lg truncate max-w-[120px] sm:max-w-[150px]'>
-        {post.author?.userName}
+      <div className='flex flex-col min-w-0'>
+        <span className='font-semibold text-sm sm:text-base truncate'>{post.author?.userName}</span>
+        {/* Optional: user handle or extra info */}
       </div>
     </div>
-
     {userData?._id !== post.author?._id && (
       <FollowButton
-        tailwind={`px-3 sm:px-4 py-1 sm:py-2 min-w-[60px] sm:min-w-[100px] h-8 sm:h-10 bg-black text-white rounded-2xl text-sm sm:text-base`}
+        tailwind={`px-3 py-1 sm:px-4 sm:py-2 text-sm sm:text-base bg-black text-white rounded-2xl shadow-sm hover:shadow-md`}
         targetUserId={post.author?._id}
       />
     )}
   </div>
 
-  {/* Post Media */}
-  <div className='w-full flex justify-center items-center'>
+  {/* Media */}
+  <div className='w-full flex justify-center items-center bg-black'>
     {post.mediaType === "image" && (
       <img
         src={post.media}
         alt=""
-        className='w-full sm:w-[90%] md:w-[80%] lg:w-[70%] rounded-2xl object-contain'
+        className='w-full h-auto max-h-[500px] md:max-h-[600px] object-contain'
       />
     )}
     {post.mediaType === "video" && (
-      <div className='w-full sm:w-[90%] md:w-[80%] lg:w-[70%]'>
+      <div className='w-full h-auto max-h-[500px] md:max-h-[600px]'>
         <VideoPlayer media={post.media} />
       </div>
     )}
   </div>
 
-  {/* Likes / Comments / Save */}
-  <div className='w-full flex justify-between items-center px-4 py-2'>
-    <div className='flex gap-4 sm:gap-6 items-center'>
+  {/* Actions: like, comment, save */}
+  <div className='w-full flex justify-between items-center px-3 py-2'>
+    <div className='flex gap-4 items-center'>
       <div className='flex items-center gap-2'>
         {!post.likes?.includes(userData._id) ? (
           <GoHeart className='w-6 h-6 sm:w-7 sm:h-7 cursor-pointer' onClick={handleLike} />
@@ -162,67 +154,66 @@ function Post({post}) {
         )}
         <span className='text-sm sm:text-base'>{post.likes?.length}</span>
       </div>
+
       <div className='flex items-center gap-2 cursor-pointer' onClick={() => setShowComment(prev => !prev)}>
         <MdOutlineInsertComment className='w-6 h-6 sm:w-7 sm:h-7' />
         <span className='text-sm sm:text-base'>{post.comments?.length}</span>
       </div>
     </div>
 
-    <div onClick={handleSaved}>
+    <div onClick={handleSaved} className='cursor-pointer'>
       {!userData.saved?.includes(post?._id) ? (
-        <MdBookmarkBorder className='w-6 h-6 sm:w-7 sm:h-7 cursor-pointer' />
+        <MdBookmarkBorder className='w-6 h-6 sm:w-7 sm:h-7' />
       ) : (
-        <MdBookmark className='w-6 h-6 sm:w-7 sm:h-7 cursor-pointer' />
+        <MdBookmark className='w-6 h-6 sm:w-7 sm:h-7' />
       )}
     </div>
   </div>
 
   {/* Caption */}
   {post.caption && (
-    <div className='w-full px-4 py-2 flex flex-col gap-1'>
-      <div className='flex items-center gap-2'>
-        <h1 className='font-bold truncate max-w-[120px] sm:max-w-[150px] text-sm sm:text-base'>
-          {post.author.userName}
-        </h1>
-        <div className='font-serif text-gray-800 break-words text-sm sm:text-base'>
-          {post.caption}
-        </div>
-      </div>
+    <div className='w-full px-3 sm:px-4 text-sm sm:text-base'>
+      <span className='font-semibold mr-2'>{post.author.userName}</span>
+      <span>{post.caption}</span>
     </div>
   )}
 
   {/* Comments */}
   {showComment && (
-    <div className='w-full flex flex-col gap-4 pb-4'>
-      <div className='w-full flex items-center justify-between relative'>
-        <div className='w-10 h-10 sm:w-14 sm:h-14 border-2 border-black rounded-full overflow-hidden'>
+    <div className='w-full flex flex-col gap-3 px-3 sm:px-4 mt-2'>
+      <div className='flex items-center gap-2 w-full'>
+        <div className='w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-gray-300 flex-shrink-0'>
           <img src={post.author.profileImage || dp} alt="" className='w-full h-full object-cover' />
         </div>
         <input
           type='text'
-          className='flex-1 mx-2 border-b-2 border-gray-500 outline-none h-10 px-2 text-sm sm:text-base'
-          placeholder='Write comment...'
+          className='flex-1 border-b-2 border-gray-300 outline-none px-2 py-1 text-sm sm:text-base'
+          placeholder='Add a comment...'
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <button className='absolute right-2 sm:right-4'>
-          <IoMdSend className='w-6 h-6 sm:w-7 sm:h-7 cursor-pointer' onClick={handleComment} />
+        <button onClick={handleComment}>
+          <IoMdSend className='w-6 h-6 sm:w-7 sm:h-7 text-blue-500 cursor-pointer' />
         </button>
       </div>
 
-      <div className='w-full max-h-72 sm:max-h-80 overflow-auto'>
-        {post.comments?.map((com, index) => (
-          <div key={index} className='w-full flex items-center gap-4 border-b-2 border-gray-200 px-4 py-2'>
-            <div className='w-10 h-10 sm:w-14 sm:h-14 border-2 border-black rounded-full overflow-hidden'>
+      <div className='max-h-60 md:max-h-80 overflow-auto flex flex-col gap-2 mt-2'>
+        {post.comments?.map((com, idx) => (
+          <div key={idx} className='flex items-center gap-2'>
+            <div className='w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-gray-300 flex-shrink-0'>
               <img src={com.author.profileImage || dp} alt="" className='w-full h-full object-cover' />
             </div>
-            <div className='text-sm sm:text-base'>{com.message}</div>
+            <div className='text-sm sm:text-base'>
+              <span className='font-semibold mr-1'>{com.author.userName}</span>
+              {com.message}
+            </div>
           </div>
         ))}
       </div>
     </div>
   )}
 </div>
+
 
   )
 }
