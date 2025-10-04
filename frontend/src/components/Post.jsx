@@ -121,21 +121,32 @@ function Post({post}) {
                 <div className='w-[150px] font-semibold truncate'>{post.author?.userName}</div>
             </div>
             {userData?._id != post.author?._id &&
-                <FollowButton
+              <FollowButton
   tailwind={`
-    px-4 md:px-5
-    min-w-[80px] md:min-w-[110px]
+    px-3 sm:px-4 md:px-5
+    min-w-[60px] sm:min-w-[90px] md:min-w-[110px]
+    max-w-full
     py-2
     h-10 md:h-11
-    bg-black text-white
-    rounded-2xl
-    text-base md:text-lg
-    font-medium
-    hover:bg-gray-800 active:scale-95
-    transition-all duration-200
+    bg-black text-white font-semibold
+    rounded-full
+    shadow-md
+    text-sm sm:text-base md:text-lg
+    text-center
+    whitespace-nowrap
+    overflow-hidden
+    text-ellipsis
+    transition-all duration-200 ease-in-out
+    relative
+    overflow-hidden
   `}
   targetUserId={post.author?._id}
 />
+
+
+
+
+
 
 
 
@@ -187,11 +198,19 @@ function Post({post}) {
         </div>
 
         {/* caption */}
-        {post.caption && <div className='w-full px-[20px] gap-[10px]
-        flex justify-start items-center'>
-            <h1 className='w-[150px] font-bold truncate'>{post.author.userName}</h1>
-            <div className='w-[150px] font-serif'>{post.caption}</div>
-        </div>}
+        {post.caption && (
+  <div className="w-full px-5 py-2 flex flex-col gap-2">
+    <div className="flex items-center gap-3">
+      <h1 className="font-bold truncate max-w-[150px]">
+        {post.author.userName}
+      </h1>
+      <div className="font-serif text-gray-800 break-words">
+        {post.caption}
+      </div>
+    </div>
+  </div>
+)}
+
         
         {/* comments */}
         {showComment && 

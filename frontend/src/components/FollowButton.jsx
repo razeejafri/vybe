@@ -26,8 +26,10 @@ function FollowButton({targetUserId, tailwind, onFollowChange}) {
     }
 
   return (
-    <button className={tailwind} onClick={handleFollow}>
+    <button className={`${tailwind} relative overflow-hidden`} onClick={handleFollow}>
         {isFollowing ? "Following" : "Follow"}
+        {/* Click shimmer overlay */}
+        <span className="absolute inset-0 bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700 opacity-0 active:opacity-30 rounded-full transition-all duration-200 pointer-events-none"></span>
     </button>
   )
 }
