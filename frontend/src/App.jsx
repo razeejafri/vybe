@@ -28,7 +28,7 @@ import Notifications from './pages/Notifications'
 import { setNotificationData } from './redux/userSlice'
 import ErrorPage from './pages/ErrorPage'
 
-export const serverUrl = "http://localhost:8000"
+export const serverUrl = "https://vybe-backend-pc9j.onrender.com"
 
 const App = () => {
 

@@ -121,35 +121,9 @@ function Post({post}) {
                 <div className='w-[150px] font-semibold truncate'>{post.author?.userName}</div>
             </div>
             {userData?._id != post.author?._id &&
-              <FollowButton
-  tailwind={`
-    px-3 sm:px-4 md:px-5
-    min-w-[60px] sm:min-w-[90px] md:min-w-[110px]
-    max-w-full
-    py-2
-    h-10 md:h-11
-    bg-black text-white font-semibold
-    rounded-full
-    shadow-md
-    text-sm sm:text-base md:text-lg
-    text-center
-    whitespace-nowrap
-    overflow-hidden
-    text-ellipsis
-    transition-all duration-200 ease-in-out
-    relative
-    overflow-hidden
-  `}
-  targetUserId={post.author?._id}
-/>
-
-
-
-
-
-
-
-
+                <FollowButton tailwind={`px-[10px] min-w-[60px] md:min-w-[100px] py-[5px] 
+                h-[30px] md:h-[40px] bg-black text-white
+                rounded-2xl text-[14px] md:text-[16px]`} targetUserId={post.author?._id}/>
             }
             
         </div>
