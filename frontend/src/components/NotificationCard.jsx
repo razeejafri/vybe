@@ -14,13 +14,13 @@ function NotificationCard({noti}) {
         <div className='flex gap-[10px] items-center'>
             <div className='w-[40px] h-[40px] border-2 border-black
             rounded-full cursor-pointer overflow-hidden' >
-                <img src={noti.sender.profileImage || dp} alt="" 
-                className='w-full object-cover' onClick={() => navigate(`/profile/${noti.sender.userName}`)}/>
+                <img src={noti?.sender?.profileImage || dp} alt="" 
+                className='w-full object-cover' onClick={() => navigate(`/profile/${noti?.sender?.userName}`)}/>
             </div>
             <div className='flex flex-col'>
                 <h1 className='text-[16px] text-white 
-                font-semibold'>{noti.sender.userName}</h1>
-                <div className='text-[15px] text-gray-200'>{noti.message}</div>
+                font-semibold'>{noti?.sender?.userName}</h1>
+                <div className='text-[15px] text-gray-200'>{noti?.message}</div>
             </div>
         </div>
         
@@ -35,10 +35,10 @@ function NotificationCard({noti}) {
             object-cover'/>
             :
             noti?.post?.mediaType == "image" ?
-            <img src={noti.post?.media} alt="" className='h-full object-cover'/>
+            <img src={noti?.post?.media} alt="" className='h-full object-cover'/>
             :
             noti?.post ?
-            <video src={noti.post?.media} muted loop className='h-full 
+            <video src={noti?.post?.media} muted loop className='h-full 
             object-cover'/>
             :
             null
